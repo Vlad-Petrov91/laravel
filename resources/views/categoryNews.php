@@ -13,10 +13,10 @@
 
 <div>
     <?php foreach ($news as $item): ?>
-    <div>
-    <h3><?= $item['title']?></h3>
-        <a href="<?=route('newsItem', $item['id'])?>">Читать далее...</a>
-    </div>
+        <div>
+            <h3><?= $item['title']?></h3>
+            <a href="<?=route('newsItem', $item['id'] )?>">Читать далее...</a>
+        </div>
     <?php endforeach;?>
 </div>
 
