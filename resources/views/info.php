@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<?php include_once "menu.php"; ?>
+<?php include_once "news/menu.php"; ?>
 
 <h2>Информационный ресурс</h2>
 </body>

@@ -15,7 +15,7 @@
     <?php foreach ($news as $item): ?>
     <div>
     <h3><?= $item['title']?></h3>
-        <a href="<?=route('newsItem', $item['id'])?>">Читать далее...</a>
+        <a href="<?=route('news.newsItem', $item['id'])?>">Читать далее...</a>
     </div>
     <?php endforeach;?>
 </div>

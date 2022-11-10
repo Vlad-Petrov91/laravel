@@ -19,18 +19,29 @@ use App\Http\Controllers\CategoriesController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::prefix('news')
+Route::name('news.')
+    ->prefix('news')
+    ->namespace('News')
     ->group(function () {
-Route::get('/', [NewsController::class, 'index'])->name('news');
-Route::get('/add', [NewsController::class, 'addNews'])->name('addNews');
-Route::get('/{id}', [NewsController::class, 'getNewsItem'])->where('id', '[0-9]+')->name('newsItem');
+        Route::get('/', [NewsController::class, 'index'])->name('news');
+        Route::get('/add', [NewsController::class, 'addNews'])->name('addNews');
+        Route::get('/one/{id}', [NewsController::class, 'getNewsItem'])->where('id', '[0-9]+')->name('newsItem');
+        Route::name('categories.')
+            ->prefix('categories')
+            ->namespace('Categories')
+            ->group(function () {
+                Route::get('/', [CategoriesController::class, 'index'])->name('categories');
+                Route::get('/{slug}', [CategoriesController::class, 'showCategoryNews'])->where('slug', '[a-z]+')->name('categoryNews');
+            });
+
     });
 
-Route::prefix('categories')
-    ->group(function () {
-        Route::get('/', [CategoriesController::class, 'index'])->name('categories');
-        Route::get('/{slug}', [CategoriesController::class, 'showCategoryNews'])->where('slug', '[a-z]+')->name('categoryNews');
-    });
+
+//Route::prefix('categories')
+//    ->group(function () {
+//        Route::get('/', [CategoriesController::class, 'index'])->name('categories');
+//        Route::get('/{slug}', [CategoriesController::class, 'showCategoryNews'])->where('slug', '[a-z]+')->name('categoryNews');
+//    });
 
 
 Route::name('admin.')
@@ -44,7 +55,7 @@ Route::name('admin.')
 
 
 Route::view('/info', 'info')->name('info');
-Route::view('/authorization',  'authorization')->name('authorization');
+Route::view('/authorization', 'authorization')->name('authorization');
 
 
 Route::fallback(function () {

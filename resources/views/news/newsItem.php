@@ -9,11 +9,16 @@
 </head>
 <body>
 
-<?php include_once "menu.php"; ?>
+<?php include_once "news/menu.php"; ?>
 
 <div>
+    <?php if ($news): ?>
+
     <h3><?= $news['title'] ?></h3>
     <p><?= $news['text'] ?></p>
+    <?php else: ?>
+    <p>Данная новость отсутсвует</p>
+    <?php endif; ?>
 </div>
 
 </body>

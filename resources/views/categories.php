@@ -8,11 +8,10 @@
     <title>Категории</title>
 </head>
 <body>
-<?php include_once 'menu.php'; ?>
+<?php include_once 'news/menu.php'; ?>
 
 <?php foreach ($categories as $item) : ?>
-<!--<a href="--><?//= $item['id']?><!--">--><?//= $item['name']?><!--</a>-->
-    <a href="<?=route('categoryNews', $item['slug'])?>"><?= $item['name']?></a>
+    <a href="<?=route('news.categories.categoryNews', $item['slug'])?>"><?= $item['name']?></a>
 <?php endforeach;?>
 </body>
 </html>
