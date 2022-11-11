@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<?php include_once "news/menu.php"; ?>
+<?php include_once "menu.blade.php"; ?>
 
 <div>
     <?php if ($news): ?>

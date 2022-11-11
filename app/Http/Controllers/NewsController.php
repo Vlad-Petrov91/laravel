@@ -9,7 +9,7 @@ class  NewsController extends Controller
 {
     public function index(News $news)
     {
-        return view('news.news')->with('news', $news->getNews());
+        return view('news.index')->with('news', $news->getNews());
     }
 
     public function getNewsItem($id, News $news)

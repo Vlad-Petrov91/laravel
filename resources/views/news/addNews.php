@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<?php include_once "menu.php"; ?>
+<?php include_once "menu.blade.php"; ?>
 
 <h2>Добавить Новость</h2>
 <form action="post">

@@ -5,12 +5,21 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Информация</title>
+    <title>Новости</title>
 </head>
 <body>
 
-<?php include_once "news/menu.php"; ?>
+<?php include_once "menu.blade.php"; ?>
 
-<h2>Информационный ресурс</h2>
+<div>
+    <?php foreach ($news as $item): ?>
+    <div>
+    <h3><?= $item['title']?></h3>
+        <a href="<?=route('news.newsItem', $item['id'])?>">Читать далее...</a>
+    </div>
+    <?php endforeach;?>
+</div>
+
+
 </body>
 </html>

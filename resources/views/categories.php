@@ -8,7 +8,7 @@
     <title>Категории</title>
 </head>
 <body>
-<?php include_once 'news/menu.php'; ?>
+<?php include_once 'news/menu.blade.php'; ?>
 
 <?php foreach ($categories as $item) : ?>
     <a href="<?=route('news.categories.categoryNews', $item['slug'])?>"><?= $item['name']?></a>

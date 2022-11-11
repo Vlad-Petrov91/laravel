@@ -23,7 +23,7 @@ Route::name('news.')
     ->prefix('news')
     ->namespace('News')
     ->group(function () {
-        Route::get('/', [NewsController::class, 'index'])->name('news');
+        Route::get('/', [NewsController::class, 'index'])->name('index');
         Route::get('/add', [NewsController::class, 'addNews'])->name('addNews');
         Route::get('/one/{id}', [NewsController::class, 'getNewsItem'])->where('id', '[0-9]+')->name('newsItem');
         Route::name('categories.')

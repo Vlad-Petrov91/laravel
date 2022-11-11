@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<?php include_once "news/menu.php"; ?>
+@include('menu')
 
 <h2>Hello</h2>
 <p>This is my site</p>
