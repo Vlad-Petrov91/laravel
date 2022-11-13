@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,18 +30,11 @@ Route::name('news.')
             ->prefix('categories')
             ->namespace('Categories')
             ->group(function () {
-                Route::get('/', [CategoriesController::class, 'index'])->name('categories');
-                Route::get('/{slug}', [CategoriesController::class, 'showCategoryNews'])->where('slug', '[a-z]+')->name('categoryNews');
+                Route::get('/', [CategoryController::class, 'index'])->name('categories');
+                Route::get('/{slug}', [CategoryController::class, 'show'])->where('slug', '[a-z]+')->name('categoryNews');
             });
 
     });
-
-
-//Route::prefix('categories')
-//    ->group(function () {
-//        Route::get('/', [CategoriesController::class, 'index'])->name('categories');
-//        Route::get('/{slug}', [CategoriesController::class, 'showCategoryNews'])->where('slug', '[a-z]+')->name('categoryNews');
-//    });
 
 
 Route::name('admin.')
@@ -61,3 +54,7 @@ Route::view('/authorization', 'authorization')->name('authorization');
 Route::fallback(function () {
     return view('404');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
