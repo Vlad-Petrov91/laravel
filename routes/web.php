@@ -18,14 +18,14 @@ use App\Http\Controllers\CategoryController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+//Route::get('/save', [HomeController::class, 'save'])->name('save');
 
 Route::name('news.')
     ->prefix('news')
     ->namespace('News')
     ->group(function () {
         Route::get('/', [NewsController::class, 'index'])->name('index');
-        Route::get('/add', [NewsController::class, 'addNews'])->name('addNews');
-        Route::get('/one/{id}', [NewsController::class, 'getNewsItem'])->where('id', '[0-9]+')->name('newsItem');
+        Route::get('/{slug}/{id}', [NewsController::class, 'getNewsItem'])->where(['slug' => '[a-z]+', 'id' => '[0-9]+'])->name('newsItem');
         Route::name('categories.')
             ->prefix('categories')
             ->namespace('Categories')
@@ -42,8 +42,9 @@ Route::name('admin.')
     ->namespace('Admin')
     ->group(function () {
         Route::get('/', [AdminIndexController::class, 'index'])->name('index');
-        Route::get('/test1', [AdminIndexController::class, 'test1'])->name('test1');
-        Route::get('/test2', [AdminIndexController::class, 'test2'])->name('test2');
+        Route::match(['get', 'post'],'/create', [AdminIndexController::class, 'create'])->name('create');
+        Route::get('/download_img', [AdminIndexController::class, 'downloadImage'])->name('downloadImage');
+        Route::get('/download_text', [AdminIndexController::class, 'downloadText'])->name('downloadText');
     });
 
 

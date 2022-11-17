@@ -12,8 +12,8 @@ class  NewsController extends Controller
         return view('news.index')->with('news', $news->getNews());
     }
 
-    public function getNewsItem($id, News $news)
+    public function getNewsItem($slug, $id, News $news)
     {
-        return view('news.newsItem')->with('news', $news->getNewsItem($id));
+        return view('news.newsItem')->with('news', $news->getNewsItem($slug, $id));
     }
 }

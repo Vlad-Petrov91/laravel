@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Storage;
+
 class News
 {
 
@@ -183,14 +185,15 @@ class News
         $this->category = $category;
     }
 
-    public function getNews()
+    public function getNews(): array
     {
-        return $this->news;
+       // return $this->news;
+        return json_decode((Storage::disk('local')->get('news.json')), true);
     }
 
-    public function getNewsItem($id): ?array
+    public function getNewsItem($slug, $id): ?array
     {
-        if (array_key_exists($id, $this->getNews())) {
+        if (array_key_exists($id, $this->getNewsByCategorySlug($slug))) {
             return $this->getNews()[$id];
         }
         return null;
@@ -198,14 +201,8 @@ class News
 
     public function getNewsByCategorySlug($slug): array
     {
-       $id = $this->category->getCategoryIdBySlug($slug);
-       $news = [];
-       foreach ($this->getNews() as $item) {
-           if ($item['category_id'] == $id){
-               $news[] = $item;
-           }
-       }
-       return $news;
+        $id = $this->category->getCategoryIdBySlug($slug);
+        return array_filter($this->getNews(), fn($item) => $item['category_id'] == $id);
     }
 }
 

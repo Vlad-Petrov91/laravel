@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    @parent Информация
+@endsection
+
 @section('menu')
     @include('menu')
 @endsection
@@ -13,6 +17,8 @@
 
                     <div class="card-body">
                         <h4>Информационный ресурс</h4>
+                        <p>Новостной сайт с парсингом новостей разрабатываемый на фреймворке "Laravel".
+                        Учебный проект</p>
                     </div>
                 </div>
             </div>

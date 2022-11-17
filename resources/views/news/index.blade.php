@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    @parent Все новости
+@endsection
+
 @section('menu')
     @include('menu')
 @endsection
@@ -15,8 +19,15 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $item['title'] }}</h5>
-                                    <a href="{{ route('news.newsItem', $item['id']) }}" class="btn btn-secondary">Читать
-                                        далее...</a>
+                                    @if($item['is_private'])
+                                        <a href="{{ route('authorization') }}" class="btn btn-secondary">Зарегистрируйтесь
+                                            для просмотра
+                                        </a>
+                                    @else
+                                        <a href="{{ route('news.newsItem',[$item['slug'], $item['id']]) }}"
+                                           class="btn btn-secondary">Читать
+                                            далее...</a>
+                                    @endif
                                 </div>
                             </div>
                         @empty

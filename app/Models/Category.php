@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Storage;
+
 class Category
 {
     private array $categories = [
@@ -42,7 +44,8 @@ class Category
      */
     public function getCategories()
     {
-        return $this->categories;
+        //return $this->categories;
+        return json_decode((Storage::disk('local')->get('categories.json')), true);
     }
 
     public function getCategoryIdBySlug($slug)
@@ -72,6 +75,13 @@ class Category
     {
         if (array_key_exists($id, $this->getCategories()))
             return $this->categories[$id];
+        else return null;
+    }
+
+    public function getCategorySlugById($id)
+    {
+        if (array_key_exists($id, $this->getCategories()))
+            return $this->categories[$id]['slug'];
         else return null;
     }
 }

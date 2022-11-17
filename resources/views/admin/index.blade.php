@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('ADMIN') }}</div>
                     <div class="card-body">
-                        <h4>{{ __('Добро пожаловать уважаемый Администратор') }}</h4>
+                        <h4>Добро пожаловать уважаемый Администратор</h4>
                     </div>
                 </div>
             </div>

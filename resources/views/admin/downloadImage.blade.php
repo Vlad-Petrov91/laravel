@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('ADMIN') }}</div>
                     <div class="card-body">
-                        <h4>{{ __('Test 1') }}</h4>
+                        <h4>Загрузка изображения</h4>
                     </div>
                 </div>
             </div>
