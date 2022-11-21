@@ -31,8 +31,8 @@
                                 <div class="col-md-6">
                                     <select id="newsCategory" type="text" class="form-control" name="category_id">
                                         @forelse($categories as $item)
-                                            <option {{ old('category_id') == $item['id'] ? 'selected':'' }}
-                                                    value="{{$item['id']}}">{{$item['name']}}</option>
+                                            <option {{ old('category_id') == $item->id ? 'selected':'' }}
+                                                    value="{{$item->id}}">{{$item->name}}</option>
                                         @empty
                                             <option value="0" selected>Нет категории</option>
                                         @endforelse

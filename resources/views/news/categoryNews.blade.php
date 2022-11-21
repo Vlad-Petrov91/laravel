@@ -20,13 +20,13 @@
                         @forelse ($news as $item)
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ $item['title'] }}</h5>
-                                    @if($item['is_private'])
+                                    <h5 class="card-title">{{ $item->title }}</h5>
+                                    @if($item->is_private)
                                         <a href="{{ route('authorization') }}" class="btn btn-secondary">Зарегистрируйтесь
                                             для просмотра
                                         </a>
                                     @else
-                                        <a href="{{ route('news.newsItem',[$item['slug'], $item['id']]) }}"
+                                        <a href="{{ route('news.newsItem',[$slug, $item->id]) }}"
                                            class="btn btn-secondary">Читать
                                             далее...</a>
                                     @endif

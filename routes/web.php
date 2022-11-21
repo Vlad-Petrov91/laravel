@@ -18,7 +18,6 @@ use App\Http\Controllers\CategoryController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-//Route::get('/save', [HomeController::class, 'save'])->name('save');
 
 Route::name('news.')
     ->prefix('news')
@@ -42,7 +41,7 @@ Route::name('admin.')
     ->namespace('Admin')
     ->group(function () {
         Route::get('/', [AdminIndexController::class, 'index'])->name('index');
-        Route::match(['get', 'post'],'/create', [AdminIndexController::class, 'create'])->name('create');
+        Route::match(['get', 'post'], '/create', [AdminIndexController::class, 'create'])->name('create');
         Route::get('/download_img', [AdminIndexController::class, 'downloadImage'])->name('downloadImage');
         Route::get('/download_text', [AdminIndexController::class, 'downloadText'])->name('downloadText');
     });

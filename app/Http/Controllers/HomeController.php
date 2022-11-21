@@ -29,9 +29,4 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function save(News $news, Category $categories)
-    {
-        Storage::disk('local')->put('news.json', json_encode($news->getNews(), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-        Storage::disk('local')->put('categories.json', json_encode($categories->getCategories(), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-    }
 }
