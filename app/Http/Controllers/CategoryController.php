@@ -10,15 +10,17 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = DB::table('categories')->get();
+        $categories = Category::all();
         return view('news.categories')->with('categories', $categories);
     }
 
-    public function show($slug)
+    public function show($slug, News $news, Category $category)
     {
-        $category = DB::table('categories')->where('slug', $slug)->value('name');
-        $categoryId = DB::table('categories')->where('slug', $slug)->value('id');
-        $news = DB::table('news')->where('category_id', $categoryId)->get();
+        $category = Category::where('slug', $slug)->value('name');
+        $categoryId = Category::query()->where('slug', $slug)->value('id');
+
+        $news = Category::find($categoryId)->news();
+
         return view('news.categoryNews')
             ->with('news', $news)
             ->with('category', $category)

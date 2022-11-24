@@ -15,7 +15,8 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Категории новостей') }}
+                    <div class="card-header">Категории новостей
+                        <div class="card-body">
                         <div class="list-group">
                             @foreach ($categories as $item)
                                 <a class="list-group-item list-group-item-action"
@@ -23,13 +24,10 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="card-body">
-
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
 @endsection

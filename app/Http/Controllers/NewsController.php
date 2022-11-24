@@ -10,16 +10,18 @@ class  NewsController extends Controller
 {
     public function index()
     {
-        $news = DB::table('news')
+        // TO DO   get, first, join и where
+        $news = News::query()
             ->join('categories', 'news.category_id', '=', 'categories.id')
             ->select('news.*', 'categories.slug')
-            ->get();
+            ->paginate(10);
+
         return view('news.index')->with('news', $news);
     }
 
-    public function getNewsItem($slug, $id)
+    public function getNewsItem($slug, News $news)
     {
-        $oneNews = DB::table('news')->where('id', $id)->first();
-        return view('news.newsItem')->with('news', $oneNews);
+        // $oneNews = DB::table('news')->where('id', $id)->first();
+        return view('news.newsItem')->with('news', $news);
     }
 }

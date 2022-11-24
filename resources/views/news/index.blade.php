@@ -34,6 +34,7 @@
                             Нет новостей
                         @endforelse
                     </div>
+                    {{$news->links()}}
                 </div>
             </div>
         </div>

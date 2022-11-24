@@ -16,7 +16,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h2 class="card-title">{{$news->title}}</h2>
-                                        <div class="card-img" style="background-image: url("{{asset('storage/news-back.jpg')}}")"></div>
+                                        <div class="card-img" style="background-image: url("{{asset('public/storage/news_img.jpg')}}")"></div>
                                         <p class="card-text">{{$news->text }}</p>
                                         @else
                                             <a href="{{ route('authorization') }}" class="btn btn-secondary">Зарегистрируйтесь
