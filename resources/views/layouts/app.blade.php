@@ -42,7 +42,7 @@
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item"><a class="nav-link{{ request()->routeIs('admin.index')?' active':'' }}"
-                                                href="{{ route('admin.index') }}">Admin</a>
+                                                href="{{ route('admin.news.index') }}">Admin</a>
                         </li>
                         @if (Route::has('login'))
                             <li class="nav-item">
@@ -85,6 +85,12 @@
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>{{session('success')}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{{session('error')}}</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif

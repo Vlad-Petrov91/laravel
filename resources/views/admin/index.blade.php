@@ -12,7 +12,7 @@
                     <div class="card-header">
                         <h3>Администратор, добро пожаловать в CRUD блок</h3>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                            <a class="btn btn-lg btn-success me-md-2" href="{{route('admin.create')}}" type="button">Добавить новость</a>
+                            <a class="btn btn-lg btn-success me-md-2" href="{{route('admin.news.create')}}" type="button">Добавить новость</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -21,12 +21,12 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $item->title }}</h5>
                                     <div class="btn-group" role="group" aria-label="Default button group">
-                                        <form method="post" action="{{ route('admin.destroy',$item) }}">
+                                        <form method="post" action="{{ route('admin.news.destroy',$item) }}">
                                             @csrf
                                             @method('DELETE')
                                             <input type="submit" value="Удалить" class="btn btn-outline-danger">
                                         </form>
-                                        <a type="button" href="{{ route('admin.edit',$item) }}"
+                                        <a type="button" href="{{ route('admin.news.edit',$item) }}"
                                            class="btn btn-outline-warning">Редактировать</a>
                                     </div>
                                 </div>

@@ -13,14 +13,31 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">@if($category->id)Изменение @else Добавление @endifкатегории</div>
+                    <div class="card-header">@if($category->id)
+                            Изменение
+                        @else
+                            Добавление
+                        @endifкатегории
+                    </div>
 
                     <div class="card-body">
-                        <form method="POST" action="@if(!$category->id){{ route('admin.create_category') }}@else{{ route('admin.update_category', $category) }}@endif ">
+                        <form method="POST"
+                              action="@if(!$category->id){{ route('admin.categories.store') }}@else{{ route('admin.categories.update', $category) }}@endif ">
+                            @if($category->id)
+                                @method('PUT')
+                            @endif
                             @csrf
                             <div class="row mb-3">
                                 <label for="name" class="col-md-4 col-form-label text-md-end">Название категории</label>
                                 <div class="col-md-6">
+                                    @if($errors->has('name'))
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            @foreach ($errors->get('name') as $error)
+                                            <strong>{{$error}}</strong>
+                                            @endforeach
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                     @endif
                                     <input id="name" type="text" class="form-control" name="name"
                                            value="{{$category->name ?? old('name')}}" autofocus>
                                 </div>
@@ -28,7 +45,11 @@
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        @if($category->id)Изменить @else Добавить @endif
+                                        @if($category->id)
+                                            Изменить
+                                        @else
+                                            Добавить
+                                        @endif
                                     </button>
                                 </div>
                             </div>
