@@ -33,19 +33,7 @@ class NewsController extends Controller
     public function store(News $news, Request $request)
     {
 
-        $tableNameCategory = (new Category())->getTable();
-
-        $this->validate($request, [
-            'title' => 'required|min:3|max:40',
-            'text' => 'required|min:3',
-            'is_private' => 'sometimes|in:1',
-            'category_id' => "required|exists:$tableNameCategory,id"
-        ], [], [
-            'title' => 'Заголовок новости',
-            'text' => 'Текст новости',
-            'category_id' => 'Категория новости',
-        ]);
-
+        $this->validate($request, $this->validateRules(), [], $this->attributeName());
 
         $news->fill($request->all());
         $news->is_private = isset($request->is_private);
@@ -62,8 +50,14 @@ class NewsController extends Controller
         ]);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function update(Request $request, News $news)
     {
+
+        $this->validate($request, $this->validateRules(), [], $this->attributeName());
+
         $news->fill($request->all());
         $news->save();
         return redirect()->route('admin.news.index')->with('success', 'Новость изменена успешно');
@@ -73,5 +67,25 @@ class NewsController extends Controller
     {
         $news->delete();
         return redirect()->route('admin.news.index')->with('success', 'Новость удалена успешно');
+    }
+
+    protected function validateRules()
+    {
+        $tableNameCategory = (new Category())->getTable();
+
+        return [
+            'title' => 'required|min:3|max:40',
+            'text' => 'required|min:3',
+            'is_private' => 'sometimes|in:1',
+            'category_id' => "required|exists:$tableNameCategory,id"
+        ];
+    }
+    protected function attributeName()
+    {
+        return [
+            'title' => 'Заголовок новости',
+            'text' => 'Текст новости',
+            'category_id' => 'Категория новости',
+        ];
     }
 }

@@ -15,6 +15,10 @@ class CategoryCreatorTest extends DuskTestCase
      */
     public function testFormAddCategory()
     {
+
+        // $this->artisan('migrate:fresh');
+        // $this->artisan('magreate:seed');
+
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/categories/create')
                 ->type('name', 'Новая')

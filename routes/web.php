@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use Illuminate\Support\Facades\Auth;
 use PHPUnit\TextUI\XmlConfiguration\Group;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\UserPermissionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,15 +42,17 @@ Route::name('news.')
 
 Route::name('admin.')
     ->prefix('admin')
-    //    ->namespace('Admin')
+    ->middleware(['auth', 'is_admin'])
     ->group(function () {
         Route::resource('news', AdminNewsController::class)->except(['show']);
         Route::resource('categories', AdminCategoryController::class)->except(['show']);
-
-        Route::get('/download_img', [AdminIndexController::class, 'downloadImage'])->name('downloadImage');
+        Route::get('/change_permissions', [UserPermissionsController::class, 'index'])->name('changePermissions');
+        Route::get('/change_permissions/toggle_admin/{user}', [UserPermissionsController::class, 'toggleAdmin'])->name('toggleAdmin');
         Route::get('/download_text', [AdminIndexController::class, 'downloadText'])->name('downloadText');
     });
 
+
+Route::match(['get', 'post'], '/profile', [ProfileController::class, 'update'])->name('updateProfile')->middleware('auth');
 Route::view('/info', 'info')->name('info');
 Route::view('/authorization', 'authorization')->name('authorization');
 

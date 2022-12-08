@@ -28,16 +28,15 @@
                             @endif
                             @csrf
                             <div class="row mb-3">
+                                @if($errors->has('name'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        @foreach ($errors->get('name') as $error)
+                                        <strong>{{$error}}</strong>
+                                        @endforeach
+                                    </div>
+                                 @endif
                                 <label for="name" class="col-md-4 col-form-label text-md-end">Название категории</label>
                                 <div class="col-md-6">
-                                    @if($errors->has('name'))
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            @foreach ($errors->get('name') as $error)
-                                            <strong>{{$error}}</strong>
-                                            @endforeach
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                        </div>
-                                     @endif
                                     <input id="name" type="text" class="form-control" name="name"
                                            value="{{$category->name ?? old('name')}}" autofocus>
                                 </div>
