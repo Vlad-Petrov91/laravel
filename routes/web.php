@@ -1,6 +1,18 @@
 <?php
 
+use App\Http\Controllers\LoginContoller;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\IndexController as AdminIndexController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use Illuminate\Support\Facades\Auth;
+use PHPUnit\TextUI\XmlConfiguration\Group;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\UserPermissionsController;
+use App\Http\Controllers\Admin\ParserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +25,50 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::name('news.')
+    ->prefix('news')
+    ->namespace('News')
+    ->group(function () {
+        Route::get('/', [NewsController::class, 'index'])->name('index');
+        Route::get('/category/{slug}/{news}', [NewsController::class, 'getNewsItem'])->where('slug', '[a-z]+')->name('newsItem');
+        Route::name('categories.')
+            ->prefix('categories')
+            ->namespace('Categories')
+            ->group(function () {
+                Route::get('/', [CategoryController::class, 'index'])->name('categories');
+                Route::get('/{slug}', [CategoryController::class, 'show'])->where('slug', '[a-z]+')->name('categoryNews');
+            });
+    });
+
+Route::name('admin.')
+    ->prefix('admin')
+    ->middleware(['auth', 'is_admin'])
+    ->group(function () {
+        Route::resource('news', AdminNewsController::class)->except(['show']);
+        Route::resource('categories', AdminCategoryController::class)->except(['show']);
+        Route::get('/change_permissions', [UserPermissionsController::class, 'index'])->name('changePermissions');
+        Route::get('/change_permissions/toggle_admin/{user}', [UserPermissionsController::class, 'toggleAdmin'])->name('toggleAdmin');
+        Route::get('/parser', [ParserController::class, 'index'])->name('parser');
+        Route::get('/download_text', [AdminIndexController::class, 'downloadText'])->name('downloadText');
+    });
+
+
+Route::match(['get', 'post'], '/profile', [ProfileController::class, 'update'])->name('updateProfile')->middleware('auth');
+
+Route::get('/auth/vk', [LoginContoller::class, 'loginVk'])->name('vkLogin')->middleware('guest');
+Route::get('/auth/vk/response', [LoginContoller::class, 'responseVK'])->name('vkResponse')->middleware('guest');
+Route::get('/auth/github', [LoginContoller::class, 'loginGithub'])->name('githubLogin')->middleware('guest');
+Route::get('/auth/github/response', [LoginContoller::class, 'responseGithub'])->name('githubResponse')->middleware('guest');
+
+Route::view('/info', 'info')->name('info');
+Route::view('/authorization', 'authorization')->name('authorization');
+
+Route::fallback(function () {
+    return view('404');
 });
 
-Route::get('/hello/{name}', function ($name) {
-    return "Hello " . $name;
-});
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
