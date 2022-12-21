@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginContoller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserPermissionsController;
+use App\Http\Controllers\Admin\ParserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,11 +50,18 @@ Route::name('admin.')
         Route::resource('categories', AdminCategoryController::class)->except(['show']);
         Route::get('/change_permissions', [UserPermissionsController::class, 'index'])->name('changePermissions');
         Route::get('/change_permissions/toggle_admin/{user}', [UserPermissionsController::class, 'toggleAdmin'])->name('toggleAdmin');
+        Route::get('/parser', [ParserController::class, 'index'])->name('parser');
         Route::get('/download_text', [AdminIndexController::class, 'downloadText'])->name('downloadText');
     });
 
 
 Route::match(['get', 'post'], '/profile', [ProfileController::class, 'update'])->name('updateProfile')->middleware('auth');
+
+Route::get('/auth/vk', [LoginContoller::class, 'loginVk'])->name('vkLogin')->middleware('guest');
+Route::get('/auth/vk/response', [LoginContoller::class, 'responseVK'])->name('vkResponse')->middleware('guest');
+Route::get('/auth/github', [LoginContoller::class, 'loginGithub'])->name('githubLogin')->middleware('guest');
+Route::get('/auth/github/response', [LoginContoller::class, 'responseGithub'])->name('githubResponse')->middleware('guest');
+
 Route::view('/info', 'info')->name('info');
 Route::view('/authorization', 'authorization')->name('authorization');
 
