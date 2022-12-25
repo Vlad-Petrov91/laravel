@@ -76,10 +76,13 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         </div>
                                      @endif
-                                    <textarea id="newsText" class="form-control" name="text"
-                                              rows="9">{{$news->text ?? old('text')}}</textarea>
+                                    <textarea id="editor" class="form-control" name="text"
+                                              rows="9">{{ empty(old()) ? $news->text : old('text')}}</textarea>
                                 </div>
                             </div>
+                                <script>
+                                    CKEDITOR.replace( 'editor', {filebrowserImageBrowseUrl: '/file-manager/ckeditor'});
+                                </script>
                             <div class="row mb-3">
                                 <div class="col-md-6 offset-md-4">
                                     @if($errors->has('is_private'))

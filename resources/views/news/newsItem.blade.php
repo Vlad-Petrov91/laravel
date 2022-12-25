@@ -17,7 +17,7 @@
                                     <div class="card-body">
                                         <h2 class="card-title">{{$news->title}}</h2>
                                         <div class="card-img"
-                                             style="background-image: url("{{asset('public/storage/news_img.jpg')}}")">
+                                             style="background-image: url({{ $news->image ?? asset('1.jpg')}})">
                                     </div>
                                     <p class="card-text">{{$news->text }}</p>
                                     @else

@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             'is_admin' => true
 
         ]);
-        $this->call(CategorySeeder::class);
-        $this->call(NewsSeeder::class);
+//        $this->call(CategorySeeder::class);
+//        $this->call(NewsSeeder::class);
     }
 }

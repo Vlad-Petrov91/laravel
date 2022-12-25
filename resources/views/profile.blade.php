@@ -5,7 +5,7 @@
 @endsection
 
 @section('menu')
-    @include('admin.admin_menu')
+    @include('menu')
 @endsection
 
 @section('content')
@@ -31,7 +31,7 @@
                             @endif
                                 <label for="name" class="col-md-4 col-form-label text-md-end">Имя</label>
                                 <div class="col-md-6">
-                                   
+
                                     <input id="name" type="text" class="form-control" name="name"
                                           value="{{old('name') ?? $user->name}}"  autofocus>
                                 </div>
@@ -49,7 +49,7 @@
                                 <div class="col-md-6">
 
                                     <input id="email" type="email" value="{{old('email') ?? $user->email}}" class="form-control" name="email">
-                                 
+
                                 </div>
                             </div>
                             <div class="row mb-3">

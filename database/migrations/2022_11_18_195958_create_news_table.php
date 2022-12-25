@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title')->comment('Заголовок новости');
             $table->text('text');
+            $table->string('image')->nullable(true);
             $table->boolean('is_private')->default(false);
             $table->timestamps();
         });

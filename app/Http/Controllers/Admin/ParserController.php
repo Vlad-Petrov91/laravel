@@ -3,24 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Jobs\NewsParsing;
 use App\Models\News;
-use Illuminate\Http\Request;
-use Orchestra\Parser\Xml\Facade as XmlParser;
+use App\Services\XMLParserService;
 
 
 class ParserController extends Controller
 {
-    public function index()
+    public function index(XMLParserService $parserService)
     {
-        $xml = XmlParser::load('https://lenta.ru/rss');
-        $news = $xml->parse([
-            'title' => ['uses' => 'channel.title'],
-            'link' => ['uses' => 'channel.link'],
-            'description' => ['uses' => 'channel.description'],
-            'image' => ['uses' => 'channel.image.url'],
-            'news' => ['uses' => 'channel.item[title,link,guid,description,pubDate,enclosure::url,category]'],
-        ]);
-        dd($news['news']);
+        $links = [
+            'https://lenta.ru/rss',
+            'https://news.rambler.ru/rss/holiday/'
+        ];
+
+        foreach ($links as $link) {
+            NewsParsing::dispatch($link);
+        }
+
+        return view('admin.index')->with('news', News::paginate(10));
     }
 }
